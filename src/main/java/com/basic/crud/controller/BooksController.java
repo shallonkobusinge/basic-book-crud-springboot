@@ -51,6 +51,9 @@ BooksService booksService;
     private ResponseEntity<?> updateBook(@RequestBody Books books,@PathVariable Integer bookId){
       try{
           Books existing = booksService.getBooksById(bookId);
+          existing.setAuthor(books.getAuthor());
+          existing.setBookName(books.getBookName());
+          existing.setPrice(books.getPrice());
           booksService.saveOrUpdate(existing);
           return new ResponseEntity<>(HttpStatus.OK);
       }catch (NoSuchElementException e){
