@@ -19,7 +19,6 @@ public class BooksController {
     @Autowired
 BooksService booksService;
 
-    //main entry
     @GetMapping("")
     private String mainEntry(){return "Hello There";}
 
@@ -28,7 +27,6 @@ BooksService booksService;
     private List<Books> getAllBooks(){
         return booksService.getAllBooks();
     }
-    //getting a book by it's id
     @GetMapping("/{bookid}")
     public ResponseEntity<Books> get(@PathVariable Integer bookid){
         try{
@@ -36,9 +34,6 @@ BooksService booksService;
             return  new ResponseEntity<Books>(book,HttpStatus.OK);
         }catch (NoSuchElementException e){return new ResponseEntity<Books>(HttpStatus.NOT_FOUND);}
     }
-//     private Books getBooks(@PathVariable("bookid") Long bookid){ return booksService.getBooksById(bookid); }
-
-     //creating a delete mapping that deletes a specified book
     @DeleteMapping("/book/{bookid}")
     private void deleteBook(@PathVariable("bookid") Integer bookid)
     {
@@ -51,13 +46,6 @@ BooksService booksService;
         booksService.saveOrUpdate(books);
         return books.getBookId();
     }
-    //creating put mapping that updates the book detail
-//    @PutMapping("/books")
-//    private Books update(@RequestBody Books books)
-//    {
-//        booksService.saveOrUpdate(books);
-//        return books;
-//    }
 
     @PutMapping("/book/{bookId}")
     private ResponseEntity<?> updateBook(@RequestBody Books books,@PathVariable Integer bookId){
